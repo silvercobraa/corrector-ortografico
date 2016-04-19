@@ -12,6 +12,7 @@ class TrieNode
 	 */
 public:
 	TrieNode* parent_node;
+	bool is_leaf;
 	vector<TrieNode*>* child_nodes;
 	TrieNode();
 	TrieNode(TrieNode* tn);

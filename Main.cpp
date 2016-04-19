@@ -13,6 +13,8 @@ int main(int argc, char const *argv[])
 		cout << tn->child_nodes->at(i) << endl;
 	}
 	Trie* t = new Trie();
+	string s = "hola";
+	t->add_word(s);
 	t->print_trie();
 	return 0;
 }

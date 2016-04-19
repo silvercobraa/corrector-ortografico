@@ -7,11 +7,12 @@
 
 class Trie
 {
-private:
-	TrieNode* root;
+//private:
 public:
+	TrieNode* root;
 	Trie ();
 	void print_trie();
+	void add_word(std::string s);
 };
 
 

@@ -9,4 +9,5 @@ TrieNode::TrieNode(TrieNode* tn)
 {
 	child_nodes = new vector<TrieNode*>(26);
 	parent_node = tn;
+	is_leaf = false;
 }
