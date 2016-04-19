@@ -7,13 +7,25 @@
 
 class Trie
 {
-//private:
-public:
+private:
+	/**
+	 * Nodo raíz de este trie. Nunca es nulo y su campo leaf siempre es falso.
+	 */
 	TrieNode* root;
-	Trie ();
+public:
+
+	Trie();
+
+	/**
+	 * Imprime este trie en orden lexicográfico.
+	 */
 	void print_trie();
+
+	/**
+	 * Agrega una palabra a este trie.
+	 */
 	void add_word(std::string s);
 };
 
 
-#endif /* end of include guard: _TRIE_H_ */
+#endif
