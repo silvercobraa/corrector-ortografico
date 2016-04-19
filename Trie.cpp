@@ -12,16 +12,15 @@ void print_node(TrieNode* t, std::string s)
 		// std::cout << s << std::endl;
 		return;
 	}
-	if (t->is_leaf)
+	if (t->is_leaf())
 	{
 		std::cout << s << std::endl;
 		return;
 	}
-	for (int i = 0; i < 26; i++)
+	for (char c = 'a'; c <= 'z'; c++)
 	{
 		// print_node(t->child_nodes->at(i), s + 'a' + i));
-		char aux = 'a' + i;
-		print_node(t->child_nodes->at(i), s + aux);
+		print_node(t->get_child(c), s + c);
 	}
 }
 void Trie::print_trie()
@@ -35,14 +34,14 @@ void Trie::add_word(std::string s)
 	for (unsigned int i = 0; i < s.size(); i++)
 	{
 		std::cout << "s[i] - 'a': " << s[i] - 'a' << std::endl;
-		if (aux->child_nodes->at(s[i] - 'a') == NULL)
+		if (aux->get_child(s[i]) == NULL)
 		{
-			aux->child_nodes->at(s[i] - 'a') = new TrieNode(aux);
+			aux->set_child(s[i], new TrieNode(aux));
 		}
-		aux = aux->child_nodes->at(s[i] - 'a');
+		aux = aux->get_child(s[i]);
 	}
 	if (aux != root)
 	{
-		aux->is_leaf = true;
+		aux->set_leaf(true);
 	}
 }

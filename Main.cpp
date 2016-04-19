@@ -6,15 +6,12 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-	TrieNode* tn = new TrieNode();
-	cout << tn->child_nodes->size() << endl;
-	for (int i = 0; i < 26; i++)
-	{
-		cout << tn->child_nodes->at(i) << endl;
-	}
 	Trie* t = new Trie();
 	string s = "hola";
 	t->add_word(s);
+	t->add_word("wena");
+	t->add_word("gooby");
+	t->add_word("pls");
 	t->print_trie();
 	return 0;
 }
