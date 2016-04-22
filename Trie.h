@@ -25,6 +25,11 @@ public:
 	 * Agrega una palabra a este trie.
 	 */
 	void add_word(std::string s);
+
+	/**
+	 * Retorna true si este diccionario contiene la palabra 's'.
+	 */
+	bool contains(std::string s);
 };
 
 

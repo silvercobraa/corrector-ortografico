@@ -57,6 +57,8 @@ public:
 	 * Setea el estado de este nodo.
 	 */
 	void set_leaf(bool b);
+
+	TrieNode* get_parent();
 };
 
 #endif

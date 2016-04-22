@@ -32,6 +32,7 @@ void Trie::add_word(std::string s)
 	for (unsigned int i = 0; i < s.size(); i++)
 	{
 		//std::cout << "s[i] - 'a': " << s[i] - 'a' << std::endl;
+		// si el nodo no existe, es creado
 		if (aux->get_child(s[i]) == NULL)
 		{
 			aux->set_child(s[i], new TrieNode(aux));
@@ -42,4 +43,18 @@ void Trie::add_word(std::string s)
 	{
 		aux->set_leaf(true);
 	}
+}
+
+bool Trie::contains(std::string s)
+{
+	TrieNode* t = root;
+	for (unsigned int i = 0; i < s.size(); i++)
+	{
+		if (t == NULL)
+		{
+			return false;
+		}
+		t = t->get_child(s[i]);
+	}
+	return t->is_leaf();
 }

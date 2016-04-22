@@ -22,5 +22,6 @@ int main(int argc, char const **argv)
 		//std::cout << linea << std::endl;
 	}
 	t->print_trie();
+	std::cout << "Contiene a: " << t->contains("a") << std::endl;
 	return 0;
 }

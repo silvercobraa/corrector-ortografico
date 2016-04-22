@@ -34,3 +34,8 @@ void TrieNode::set_leaf(bool b)
 {
 	leaf = b;
 }
+
+TrieNode* TrieNode::get_parent()
+{
+	return parent_node;
+}
