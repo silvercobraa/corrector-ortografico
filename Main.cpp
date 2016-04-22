@@ -18,10 +18,18 @@ int main(int argc, char const **argv)
 	while(!archivo_diccionario.eof())
 	{
 		std::getline(archivo_diccionario, linea);
+		if (linea[0] == '%')
+		{
+			continue;
+		}
 		t->add_word(linea);
 		//std::cout << linea << std::endl;
 	}
 	t->print_trie();
-	std::cout << "Contiene a: " << t->contains("a") << std::endl;
+	std::cout << "Contiene 'comentario': " << t->contains("comentario") << std::endl;
+	while (true)
+	{
+
+	}
 	return 0;
 }
