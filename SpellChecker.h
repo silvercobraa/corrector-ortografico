@@ -19,7 +19,15 @@ public:
 	 */
 	void set_dictionary(const char* path);
 
+	/**
+	 * Retorna el trie que representa al diccionario.
+	 */
 	Trie* get_dicctionary();
+
+	/**
+	 * Revisa la ortografía del archivo cuya ruta es 'path'.
+	 */
+	void check_spelling(const char* path);
 
 };
 

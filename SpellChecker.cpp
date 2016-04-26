@@ -31,3 +31,8 @@ Trie* SpellChecker::get_dicctionary()
 {
 	return this->dictionary;
 }
+
+void SpellChecker::check_spelling(const char* path)
+{
+	std::cout << "No implementado aún." << std::endl;
+}
