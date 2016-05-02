@@ -40,19 +40,6 @@ private:
 	 */
 	bool differs_at_most_by_2_characters(std::string s1, std::string s2);
 
-	/**
-	 * Retorna true si s1 es una sugerencia válida para s2, según los siguientes
-	 * criterios:
-	 * - Si las longitudes de M y C difieren en más de dos, entonces C no se
-	 *   sugiere.
-	 * - Si M es un prefijo de C, o si C es un prefijo de M , entonces se sugiere
-	 *   C.
-	 * - Se comparan, uno a uno desde el comienzo, los caracteres de M y C hasta
-	 *   terminar uno o ambos strings (lo que ocurra primero). Si hay a lo más
-	 *   dos diferencias, y ambos M y C son de largo mayor a tres, entonces
-	 *   se sugiere C.
-	 */
-	bool is_suggestion(std::string M, std::string C);
 
 public:
 	SpellingChecker();
@@ -61,7 +48,7 @@ public:
 	 * Llena el diccionario de este corrector ortográfico con todas las palabras
 	 * del archivo cuya ruta es 'path'. Se asume una palabra por línea.
 	 */
-	void set_dictionary(const char* path);
+	void set_dictionary(Trie* dictionary);
 
 	/**
 	 * Retorna un trie que representa al diccionario.
@@ -81,6 +68,19 @@ public:
 	 */
 	std::string check_spelling(std::string word);
 
+	/**
+	* Retorna true si s1 es una sugerencia válida para s2, según los siguientes
+	* criterios:
+	* - Si las longitudes de M y C difieren en más de dos, entonces C no se
+	*   sugiere.
+	* - Si M es un prefijo de C, o si C es un prefijo de M , entonces se sugiere
+	*   C.
+	* - Se comparan, uno a uno desde el comienzo, los caracteres de M y C hasta
+	*   terminar uno o ambos strings (lo que ocurra primero). Si hay a lo más
+	*   dos diferencias, y ambos M y C son de largo mayor a tres, entonces
+	*   se sugiere C.
+	*/
+	bool is_suggestion(std::string M, std::string C);
 };
 
 

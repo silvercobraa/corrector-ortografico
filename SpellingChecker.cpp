@@ -21,11 +21,6 @@ void SpellingChecker::add_word(std::string s)
 	dictionary->add_word(s);
 }
 
-void SpellingChecker::check_spelling(const char* path)
-{
-	std::cout << "No implementado aún." << std::endl;
-}
-
 bool SpellingChecker::validate_length(std::string s1, std::string s2)
 {
 	if (s1.size() - s2.size() <= 2 || s2.size() - s1.size() <= 2)
@@ -89,6 +84,10 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 std::string SpellingChecker::check_spelling(std::string word)
 {
 	std::string return_value = "";
+	// AQUI SE DEBERIA ITERAR EL TRIE Y LLAMAR AL METODO IS SUGGESTION POR CADA
+	// PALABRA, PARA LUEGO CONCATENARLA A RETURN VALUE. ESTA FUNCION (check_spelling)
+	// DEBERIA SER LLAMADA POR EL FILE HANDLER, QUE ESCRIBIRIA EL RETORNO EN EL
+	// ARCHIVO LOG.
 	if (!dictionary->contains(word))
 	{
 		return_value += word + ":";
@@ -97,7 +96,19 @@ std::string SpellingChecker::check_spelling(std::string word)
 	return return_value;
 }
 
-bool is_suggestion(std::string M, std::string C)
+bool SpellingChecker::is_suggestion(std::string M, std::string C)
 {
-	return (is_prefix(M, C) || is_prefix(C, M)) && validate_length(M, C) && differs_at_most_by_2_characters(M, C);
+	if (!validate_length(M, C))
+	{
+		return false;
+	}
+	if (is_prefix(M, C) || is_prefix(C, M))
+	{
+		return true;
+	}
+	if (differs_at_most_by_2_characters(M, C) && M.size() > 3 && C.size() > 3)
+	{
+		return true;
+	}
+	return false;
 }
