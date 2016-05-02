@@ -40,6 +40,20 @@ private:
 	 */
 	bool differs_at_most_by_2_characters(std::string s1, std::string s2);
 
+	/**
+	 * Retorna true si s1 es una sugerencia válida para s2, según los siguientes
+	 * criterios:
+	 * - Si las longitudes de M y C difieren en más de dos, entonces C no se
+	 *   sugiere.
+	 * - Si M es un prefijo de C, o si C es un prefijo de M , entonces se sugiere
+	 *   C.
+	 * - Se comparan, uno a uno desde el comienzo, los caracteres de M y C hasta
+	 *   terminar uno o ambos strings (lo que ocurra primero). Si hay a lo más
+	 *   dos diferencias, y ambos M y C son de largo mayor a tres, entonces
+	 *   se sugiere C.
+	 */
+	bool is_suggestion(std::string M, std::string C);
+
 public:
 	SpellingChecker();
 
@@ -59,22 +73,13 @@ public:
 	 */
 	void add_word(std::string s);
 
-
 	/**
-	 * Setea el archivo cuya ruta es 'path' como el archivo de salida de la
-	 * correción ortográfica. Si no existe, es creado.
+	 * Revisa la ortografía de la palabra word. Si la palabra no está contenida en el
+	 * diccionario, se retorna un string de la forma:
+	 * word: sugerencia_1 sugerencia_2 sugerencia_3 ...
+	 * Si la palabra está bien escrita, se retorna un string vacío.
 	 */
-	void set_log_file(const char* path);
-
-	/**
-	 * Vacía el archivo log.
-	 */
-	void empty_log_file();
-
-	/**
-	 * Revisa la ortografía del archivo cuya ruta es 'path'.
-	 */
-	void check_spelling(const char* path);
+	std::string check_spelling(std::string word);
 
 };
 

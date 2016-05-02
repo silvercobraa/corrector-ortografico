@@ -6,26 +6,10 @@ SpellingChecker::SpellingChecker()
 	this->dictionary = new Trie();
 }
 
-/*void SpellingChecker::set_dictionary(const char* path)
+void SpellingChecker::set_dictionary(Trie* dictionary)
 {
-	std::ifstream dictionary_file;
-	dictionary_file.open(path);
-	if (!dictionary_file.is_open())
-	{
-		std::cout << "No se pudo abrir el archivo " << path << std::endl;
-		return;
-	}
-	std::string line;
-	while(!dictionary_file.eof())
-	{
-		std::getline(dictionary_file, line);
-		if (line[0] == '%')
-		{
-			continue;
-		}
-		dictionary->add_word(line);
-	}
-}*/
+	this->dictionary = dictionary;
+}
 
 Trie* SpellingChecker::get_dictionary()
 {
@@ -42,7 +26,7 @@ void SpellingChecker::check_spelling(const char* path)
 	std::cout << "No implementado aún." << std::endl;
 }
 
-bool validate_length(std::string s1, std::string s2)
+bool SpellingChecker::validate_length(std::string s1, std::string s2)
 {
 	if (s1.size() - s2.size() <= 2 || s2.size() - s1.size() <= 2)
 	{
@@ -51,7 +35,7 @@ bool validate_length(std::string s1, std::string s2)
 	return false;
 }
 
-bool is_prefix(std::string s1, std::string s2)
+bool SpellingChecker::is_prefix(std::string s1, std::string s2)
 {
 	// Si s1 es más larga no puede ser un prefijo de s.
 	if (s1.size() > s2.size())
@@ -80,7 +64,7 @@ std::string shortest(std::string s1, std::string s2)
 	}
 }
 
-bool differs_at_most_by_2_characters(std::string s1, std::string s2)
+bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::string s2)
 {
 	if (s1.size() <= 3 || s2.size() <= 3)
 	{
@@ -100,4 +84,20 @@ bool differs_at_most_by_2_characters(std::string s1, std::string s2)
 		return true;
 	}
 	return false;
+}
+
+std::string SpellingChecker::check_spelling(std::string word)
+{
+	std::string return_value = "";
+	if (!dictionary->contains(word))
+	{
+		return_value += word + ":";
+
+	}
+	return return_value;
+}
+
+bool is_suggestion(std::string M, std::string C)
+{
+	return (is_prefix(M, C) || is_prefix(C, M)) && validate_length(M, C) && differs_at_most_by_2_characters(M, C);
 }
