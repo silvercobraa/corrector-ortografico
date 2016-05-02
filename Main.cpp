@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
-#include "SpellChecker.h"
+#include "SpellingChecker.h"
 
 
 int main(int argc, char const **argv)
 {
-	SpellChecker* sp = new SpellChecker();
+	SpellingChecker* sp = new SpellingChecker();
 	sp->set_dictionary(argv[1]);
 	Trie* t = sp->get_dicctionary();
 	t->print_trie();

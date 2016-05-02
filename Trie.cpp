@@ -11,10 +11,10 @@ void print_node(TrieNode* t, std::string s)
 	{
 		return;
 	}
-	if (t->is_leaf())
+	if (t->is_valid())
 	{
 		std::cout << s << std::endl;
-		//return; // No debe retonar cuando sea una hoja pued podrian haber mas palabras con el mismo prefijo
+		//return; // No debe retonar cuando sea una hoja puede podrian haber mas palabras con el mismo prefijo
 	}
 	for (char c = 'a'; c <= 'z'; c++)
 	{
@@ -41,7 +41,7 @@ void Trie::add_word(std::string s)
 	}
 	if (aux != root)
 	{
-		aux->set_leaf(true);
+		aux->set_valid(true);
 	}
 }
 
@@ -56,5 +56,5 @@ bool Trie::contains(std::string s)
 		}
 		t = t->get_child(s[i]);
 	}
-	return t->is_leaf();
+	return t->is_valid();
 }

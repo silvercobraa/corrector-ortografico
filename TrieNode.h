@@ -49,14 +49,14 @@ public:
 	void set_child(char c, TrieNode* tn);
 
 	/**
-	 * Retorna true si este nodo es una hoja. Retorna false si no lo es (duh).
+	 * Retorna true si este nodo contiene es considerado válido. Retorna false si no lo es (duh).
 	 */
-	bool is_leaf();
+	bool is_valid();
 
 	/**
 	 * Setea el estado de este nodo.
 	 */
-	void set_leaf(bool b);
+	void set_valid(bool b);
 
 	TrieNode* get_parent();
 };

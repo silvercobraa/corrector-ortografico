@@ -25,12 +25,12 @@ void TrieNode::set_child(char c, TrieNode* tn)
 	child_nodes->at(c - 'a') = tn;
 }
 
-bool TrieNode::is_leaf()
+bool TrieNode::is_valid()
 {
 	return leaf;
 }
 
-void TrieNode::set_leaf(bool b)
+void TrieNode::set_valid(bool b)
 {
 	leaf = b;
 }
