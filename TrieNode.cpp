@@ -5,14 +5,14 @@ TrieNode::TrieNode()
 {
 	child_nodes = new vector<TrieNode*>(26);
 	parent_node = NULL;
-	leaf = false;
+	valid = false;
 }
 
 TrieNode::TrieNode(TrieNode* tn)
 {
 	child_nodes = new vector<TrieNode*>(26);
 	parent_node = tn;
-	leaf = false;
+	valid = false;
 }
 
 TrieNode* TrieNode::get_child(char c)
@@ -27,12 +27,14 @@ void TrieNode::set_child(char c, TrieNode* tn)
 
 bool TrieNode::is_valid()
 {
-	return leaf;
+	return valid;
 }
 
-void TrieNode::set_valid(bool b)
+int TrieNode::set_valid(bool new_state)
 {
-	leaf = b;
+	bool previous_state = valid;
+	valid = new_state;
+	return new_state-previous_state;
 }
 
 TrieNode* TrieNode::get_parent()

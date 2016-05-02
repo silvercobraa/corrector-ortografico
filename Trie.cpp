@@ -3,6 +3,7 @@
 Trie::Trie()
 {
 	root = new TrieNode();
+	total_words = 0;
 }
 
 void print_node(TrieNode* t, std::string s)
@@ -26,9 +27,10 @@ void Trie::print_trie()
 	print_node(root, "");
 }
 
-void Trie::add_word(std::string s)
+int Trie::add_word(std::string s)
 {
 	TrieNode* aux = root;
+	int return_value;
 	for (unsigned int i = 0; i < s.size(); i++)
 	{
 		//std::cout << "s[i] - 'a': " << s[i] - 'a' << std::endl;
@@ -41,8 +43,10 @@ void Trie::add_word(std::string s)
 	}
 	if (aux != root)
 	{
-		aux->set_valid(true);
+		return_value = aux->set_valid(true);
+		total_words += return_value;
 	}
+	return return_value;
 }
 
 bool Trie::contains(std::string s)
@@ -57,4 +61,10 @@ bool Trie::contains(std::string s)
 		t = t->get_child(s[i]);
 	}
 	return t->is_valid();
+}
+
+
+int Trie::get_total_words()
+{
+	return total_words;
 }

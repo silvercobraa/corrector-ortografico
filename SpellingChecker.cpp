@@ -6,7 +6,7 @@ SpellingChecker::SpellingChecker()
 	this->dictionary = new Trie();
 }
 
-void SpellingChecker::set_dictionary(const char* path)
+/*void SpellingChecker::set_dictionary(const char* path)
 {
 	std::ifstream dictionary_file;
 	dictionary_file.open(path);
@@ -25,11 +25,16 @@ void SpellingChecker::set_dictionary(const char* path)
 		}
 		dictionary->add_word(line);
 	}
-}
+}*/
 
-Trie* SpellingChecker::get_dicctionary()
+Trie* SpellingChecker::get_dictionary()
 {
 	return this->dictionary;
+}
+
+void SpellingChecker::add_word(std::string s)
+{
+	dictionary->add_word(s);
 }
 
 void SpellingChecker::check_spelling(const char* path)

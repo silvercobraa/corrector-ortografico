@@ -1,13 +1,26 @@
 #include "Trie.h"
 
-#ifndef _SPELL_CHECKER_
-#define _SPELL_CHECKER_
+#ifndef _SPELLING_CHECKER_H_
+#define _SPELLING_CHECKER_H_
 
 
 class SpellingChecker
 {
 private:
 
+	/**
+	 * Cantidad de palabras revisadas.
+	 */
+	int total_checked_words;
+
+	/**
+	 * Cantidad de palabras que están mal escritas.
+	 */
+	int total_mispelled_words;
+
+	/**
+	 * Trie con las palabras consideradas válidas por este corrector ortográfico.
+	 */
 	Trie* dictionary;
 
 	/**
@@ -26,7 +39,7 @@ private:
 	 * ambas es mayor a 3.
 	 */
 	bool differs_at_most_by_2_characters(std::string s1, std::string s2);
-	
+
 public:
 	SpellingChecker();
 
@@ -37,9 +50,15 @@ public:
 	void set_dictionary(const char* path);
 
 	/**
-	 * Retorna el trie que representa al diccionario.
+	 * Retorna un trie que representa al diccionario.
 	 */
-	Trie* get_dicctionary();
+	Trie* get_dictionary();
+
+	/**
+	 * Agrega la palabra 's' al conjunto de palabras válidas.
+	 */
+	void add_word(std::string s);
+
 
 	/**
 	 * Setea el archivo cuya ruta es 'path' como el archivo de salida de la
