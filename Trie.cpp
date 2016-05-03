@@ -76,15 +76,17 @@ Trie::KeyIterator* Trie::get_key_iterator()
 
 Trie::KeyIterator::KeyIterator()
 {
-
+	// TODO: Implementar constructor.
 }
 
 bool Trie::KeyIterator::has_next()
 {
+	// TODO: Implementar este método.
 	return false;
 }
 
 std::string Trie::KeyIterator::get_next()
 {
+	// TODO: Implementar este método.
 	return NULL;
 }
