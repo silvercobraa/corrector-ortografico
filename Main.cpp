@@ -11,8 +11,10 @@ int main(int argc, char const **argv)
 	//SpellingChecker* sp = new SpellingChecker();
 	//sp->set_dictionary(argv[1]);
 	//Trie* t = sp->get_dictionary();
-	t->print_trie();
+	//t->print_trie();
 	std::cout << "total words: " << t->get_total_words() << std::endl;
+	SpellingChecker* sc = new SpellingChecker();
+	std::cout << sc->is_suggestion("HOL", "HOLAS") << std::endl;
 	while (true)
 	{
 

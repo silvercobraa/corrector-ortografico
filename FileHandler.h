@@ -30,9 +30,9 @@ private:
 	std::ofstream log_file;
 
 	/**
-	 * Lanza una excepción si alguno de los archivos no pudo abrirse.
+	 * Lanza una excepción si el archivo 'file' no pudo abrirse.
 	 */
-	void check_open_files(const char* dictionary_file_path, const char* input_file_path, const char* log_file_path);
+	void check_open(std::ifstream* file, const char* path);
 
 
 public:
