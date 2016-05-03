@@ -55,6 +55,16 @@ public:
 	 */
 	void write_log_file();
 
+	/**
+	 * Escribe la string s en el archivo log_file.
+	 */
+	void write_to_log(std::string s);
+
+	/**
+	 * Cierra los 3 archivos: dictionary_file, input_file y log_file.
+	 */
+	void close_all();
+
 };
 
 

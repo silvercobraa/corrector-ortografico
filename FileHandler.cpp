@@ -44,7 +44,7 @@ void FileHandler::write_log_file()
 {
 	// TODO:
 	// 1 - Escribir en el log nombre del alumno, nombre del archivo que se reviso y
-	// diccionario utilizado para la revisi ́on (URL en la cuál está disponible
+	// diccionario utilizado para la revisión (URL en la cuál está disponible
 	// para descarga).
 	// 2 - Parsear el archivo input_file y escribir en el log el retorno del método
 	// check_spelling evaluado en cada palabra extraida de dicho archivo.
@@ -52,4 +52,20 @@ void FileHandler::write_log_file()
 	// incluya: número total de palabras que contiene el diccionario, número de
 	// palabras escritas correctamente y número de palabras con error. Cada una
 	// en una línea.
+}
+
+void FileHandler::write_to_log(std::string s)
+{
+	if (!log_file.is_open())
+	{
+		std::cout << "No está abierto." << std::endl;
+	}
+	log_file << s;
+}
+
+void FileHandler::close_all()
+{
+	dictionary_file.close();
+	input_file.close();
+	log_file.close();
 }
