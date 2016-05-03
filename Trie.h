@@ -8,6 +8,7 @@
 class Trie
 {
 private:
+
 	/**
 	 * Nodo raíz de este trie. Nunca es nulo y su campo valid siempre es falso.
 	 */
@@ -17,7 +18,18 @@ private:
 	 * Cantidad de palabras que contiene este Trie.
 	 */
 	int total_words;
+
 public:
+	/**
+	* Iterador de las claves de este Trie.
+	*/
+	class KeyIterator
+	{
+	public:
+		KeyIterator();
+		bool has_next();
+		std::string get_next();
+	};
 
 	Trie();
 
@@ -41,6 +53,12 @@ public:
 	 * Retona la cantidad de palabras que contiene este Trie.
 	 */
 	int get_total_words();
+
+	/**
+	 * Retorna un iterador de las claves de este Trie.
+	 */
+	KeyIterator* get_key_iterator();
+
 };
 
 

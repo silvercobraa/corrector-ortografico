@@ -68,3 +68,23 @@ int Trie::get_total_words()
 {
 	return total_words;
 }
+
+Trie::KeyIterator* Trie::get_key_iterator()
+{
+	return new KeyIterator();
+}
+
+Trie::KeyIterator::KeyIterator()
+{
+
+}
+
+bool Trie::KeyIterator::has_next()
+{
+	return false;
+}
+
+std::string Trie::KeyIterator::get_next()
+{
+	return NULL;
+}
