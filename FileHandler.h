@@ -34,8 +34,11 @@ private:
 	 */
 	void check_open_files(const char* dictionary_file_path, const char* input_file_path, const char* log_file_path);
 
+
 public:
+
 	FileHandler();
+
 	FileHandler (const char* dictionary_file_path, const char* input_file_path, const char* log_file_path);
 
 	/**
@@ -45,6 +48,12 @@ public:
 	 * líneas que comiencen con un signo porcentaje ('%').
 	 */
 	Trie* extract_dictionary_file_words();
+
+	/**
+	 * Llena el archivo log_file con las palabras mal escritas, sus sugerencias
+	 * y el resumen de estadísticas.
+	 */
+	void write_log_file();
 
 };
 

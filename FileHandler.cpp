@@ -7,7 +7,6 @@ FileHandler::FileHandler()
 FileHandler::FileHandler(const char* dictionary_file_path, const char* input_file_path, const char* log_file_path)
 {
 	spelling_checker = new SpellingChecker();
-	// FALTA CHECKEAR LOS OPEN!!
 	dictionary_file.open(dictionary_file_path);
 	input_file.open(input_file_path);
 	log_file.open(log_file_path);
