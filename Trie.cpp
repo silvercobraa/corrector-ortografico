@@ -52,6 +52,12 @@ int Trie::add_word(std::string s)
 bool Trie::contains(std::string s)
 {
 	TrieNode* t = root;
+	//std::cout << "size: " << s.size() << std::endl;
+	//std::cout << "string: " << s << std::endl;
+	if (s.size() == 0)
+	{
+		return true;
+	}
 	for (unsigned int i = 0; i < s.size(); i++)
 	{
 		if (t == NULL)
@@ -59,6 +65,10 @@ bool Trie::contains(std::string s)
 			return false;
 		}
 		t = t->get_child(s[i]);
+	}
+	if (t == NULL)
+	{
+		return false;
 	}
 	return t->is_valid();
 }
