@@ -50,10 +50,9 @@ public:
 	Trie* extract_dictionary_file_words();
 
 	/**
-	 * Llena el archivo log_file con las palabras mal escritas, sus sugerencias
-	 * y el resumen de estadísticas.
+	 * Llena el archivo log_file con las palabras mal escritas y sus sugerencias.
 	 */
-	void write_log_file();
+	void write_suggestions();
 
 	/**
 	 * Escribe la string s en el archivo log_file.
@@ -65,6 +64,13 @@ public:
 	 */
 	void close_all();
 
+	/**
+	 * Escribe en el archivo log_file el número total de palabras que contiene
+	 * el diccionario del corrector ortográfico, el número de palabras escritas
+	 * correctamente en el archivo input_file y el número de palabras con error
+	 * de este mismo.
+	 */
+	void write_statistics();
 };
 
 
