@@ -46,11 +46,11 @@ void FileHandler::write_suggestions()
 	std::string lowercase = "";
 	while(true)
 	{
+		input_file >> word;
 		if (input_file.eof())
 		{
 			break;
 		}
-		input_file >> word;
 		std::cout << "word: " << word << std::endl;
 		for (unsigned int i = 0; i < word.size(); i++)
 		{
@@ -64,10 +64,6 @@ void FileHandler::write_suggestions()
 			}
 		}
 		std::cout << "lowercase: " << lowercase << std::endl;
-		/*if (!lowercase.compare(""))
-		{
-			continue;
-		}*/
 		write_to_log(spelling_checker->check_spelling(lowercase));
 		lowercase.clear();
 	}
