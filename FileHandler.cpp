@@ -40,27 +40,49 @@ Trie* FileHandler::extract_dictionary_file_words()
 	return spelling_checker->get_dictionary();
 }
 
-void FileHandler::write_log_file()
+void FileHandler::write_suggestions()
 {
-	// TODO:
-	// 1 - Escribir en el log nombre del alumno, nombre del archivo que se reviso y
-	// diccionario utilizado para la revisión (URL en la cuál está disponible
-	// para descarga).
-	// 2 - Parsear el archivo input_file y escribir en el log el retorno del método
-	// check_spelling evaluado en cada palabra extraida de dicho archivo.
-	// 3 - Escribir en el log un resumen de estadísticas de la revisión que
-	// incluya: número total de palabras que contiene el diccionario, número de
-	// palabras escritas correctamente y número de palabras con error. Cada una
-	// en una línea.
+	std::string word = "";
+	std::string lowercase = "";
+	while(true)
+	{
+		if (input_file.eof())
+		{
+			break;
+		}
+		input_file >> word;
+		std::cout << "word: " << word << std::endl;
+		for (unsigned int i = 0; i < word.size(); i++)
+		{
+			if ('A' <= word[i] && word[i] <= 'Z')
+			{
+				lowercase += (word[i]-'A'+'a');
+			}
+			else if ('a' <= word[i] && word[i] <= 'z')
+			{
+				lowercase += (word[i]);
+			}
+		}
+		std::cout << "lowercase: " << lowercase << std::endl;
+		/*if (!lowercase.compare(""))
+		{
+			continue;
+		}*/
+		write_to_log(spelling_checker->check_spelling(lowercase));
+		lowercase.clear();
+	}
 }
 
 void FileHandler::write_to_log(std::string s)
 {
-	if (!log_file.is_open())
-	{
-		std::cout << "No está abierto." << std::endl;
-	}
 	log_file << s;
+}
+
+void FileHandler::write_statistics()
+{
+	log_file << "cantidad de palabras del diccionario: " << spelling_checker->get_dictionary()->get_total_words() << std::endl;
+	log_file << "palabras bien escritas: " << spelling_checker->get_total_checked_words()-spelling_checker->get_total_mispelled_words() << std::endl;
+	log_file << "palabras mal escritas: " << spelling_checker->get_total_mispelled_words() << std::endl;
 }
 
 void FileHandler::close_all()
