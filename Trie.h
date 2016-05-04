@@ -45,7 +45,8 @@ public:
 	int add_word(std::string s);
 
 	/**
-	 * Retorna true si este diccionario contiene la palabra 's'.
+	 * Retorna true si este trie contiene la palabra 's'. La palabra vacía
+	 * siempre se considera como contenida en el trie.
 	 */
 	bool contains(std::string s);
 
