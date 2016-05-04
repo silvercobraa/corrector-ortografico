@@ -86,7 +86,7 @@ std::string SpellingChecker::check_spelling(std::string word)
 	std::string return_value = "";
 	if (!dictionary->contains(word))
 	{
-		return_value += word + " :";
+		return_value += word + ":";
 		Trie::KeyIterator* it = dictionary->get_key_iterator(); // ESTE DEBE SER UN ITERADOR QUE RECORRA LAS CLAVES EN ORDEN LEXICOGRÁFICO
 		std::string possible_suggestion = "";
 		while(it->has_next())
