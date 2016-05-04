@@ -81,6 +81,17 @@ public:
 	*   se sugiere C.
 	*/
 	bool is_suggestion(std::string M, std::string C);
+
+	/**
+	 * Retorna la cantidad de palabras revisadas.
+	 */
+	int get_total_checked_words();
+
+	/**
+	 * Retorna la cantidad de palabras evisadas que están mal escritas, según el
+	 * diccionario de este corrector ortográfico.
+	 */
+	int get_total_mispelled_words();
 };
 
 

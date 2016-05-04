@@ -84,14 +84,9 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 std::string SpellingChecker::check_spelling(std::string word)
 {
 	std::string return_value = "";
-	// AQUI SE DEBERIA ITERAR EL TRIE Y LLAMAR AL METODO IS SUGGESTION POR CADA
-	// PALABRA, PARA LUEGO CONCATENARLA A RETURN VALUE. ESTA FUNCION (check_spelling)
-	// DEBERIA SER LLAMADA POR EL FILE HANDLER, QUE ESCRIBIRIA EL RETORNO EN EL
-	// ARCHIVO LOG.
 	if (!dictionary->contains(word))
 	{
-		return_value += word + ":";
-		// Porque no puedo instanciar este puto iterador!!!??
+		return_value += word + " :";
 		Trie::KeyIterator* it = dictionary->get_key_iterator(); // ESTE DEBE SER UN ITERADOR QUE RECORRA LAS CLAVES EN ORDEN LEXICOGRÁFICO
 		std::string possible_suggestion = "";
 		while(it->has_next())
@@ -124,4 +119,13 @@ bool SpellingChecker::is_suggestion(std::string M, std::string C)
 		return true;
 	}
 	return false;
+}
+
+int SpellingChecker::get_total_checked_words()
+{
+	return total_checked_words;
+}
+int SpellingChecker::get_total_mispelled_words()
+{
+	return total_mispelled_words;
 }
