@@ -1,3 +1,4 @@
+#include <vector>
 #include "Trie.h"
 #include "FileHandler.h"
 
@@ -11,6 +12,7 @@ class SpellingChecker
 private:
 
 	FileHandler* file_handler;
+	vector<std::string> suggestions;
 	/**
 	 * Cantidad de palabras revisadas.
 	 */
@@ -47,6 +49,9 @@ private:
 public:
 	SpellingChecker();
 	SpellingChecker(FileHandler* f);
+
+	void print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences);
+	void print_suggestions_2(TrieNode* t, std::string s, std::string word, int differences);
 
 	/**
 	 * Llena el diccionario de este corrector ortográfico con todas las palabras
@@ -97,7 +102,7 @@ public:
 	 */
 	int get_total_mispelled_words();
 
-	void magic(TrieNode* t, std::string s, std::string word);
+	void magic(std::string word);
 };
 
 

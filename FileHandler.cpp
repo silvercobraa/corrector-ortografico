@@ -52,7 +52,7 @@ void FileHandler::write_suggestions()
 		{
 			break;
 		}
-		//std::cout << "word: " << word << std::endl;
+		std::cout << "word: " << word << std::endl;
 		for (unsigned int i = 0; i < word.size(); i++)
 		{
 			if ('A' <= word[i] && word[i] <= 'Z')
@@ -64,7 +64,7 @@ void FileHandler::write_suggestions()
 				lowercase += (word[i]);
 			}
 		}
-		//std::cout << "lowercase: " << lowercase << std::endl;
+		std::cout << "lowercase: " << lowercase << std::endl;
 		spelling_checker->check_spelling(lowercase);
 		lowercase.clear();
 	}
