@@ -4,6 +4,17 @@
 SpellingChecker::SpellingChecker()
 {
 	this->dictionary = new Trie();
+	this->file_handler = NULL;
+	this->total_checked_words = 0;
+	this->total_mispelled_words = 0;
+}
+
+SpellingChecker::SpellingChecker(FileHandler* f)
+{
+	this->dictionary = new Trie();
+	this->file_handler = f;
+	this->total_checked_words = 0;
+	this->total_mispelled_words = 0;
 }
 
 void SpellingChecker::set_dictionary(Trie* dictionary)
@@ -81,40 +92,52 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 	return false;
 }
 
-std::string SpellingChecker::check_spelling(std::string word)
-{
-	/*std::string return_value = "";
-	if (!dictionary->contains(word))
-	{
-		return_value += word + ":";
-		std::string possible_suggestion = "";
-		if (is_suggestion(word, possible_suggestion))
-		{
-			return_value += " " + possible_suggestion;
-		}
-		return_value += "\n";
-		total_mispelled_words++;
-	}
-	total_checked_words++;
-	//return return_value;*/
-	return "";
-}
-
 bool SpellingChecker::is_suggestion(std::string M, std::string C)
 {
 	if (!validate_length(M, C))
 	{
 		return false;
 	}
-	if (is_prefix(M, C) || is_prefix(C, M))
+	if (!is_prefix(M, C) && !is_prefix(C, M))
 	{
-		return true;
+		return false;
 	}
 	if (differs_at_most_by_2_characters(M, C) && M.size() > 3 && C.size() > 3)
 	{
 		return true;
 	}
 	return false;
+}
+
+void SpellingChecker::magic(TrieNode* t, std::string s, std::string word)
+{
+	if (t == NULL)
+	{
+		return;
+	}
+	if (t->is_valid())
+	{
+		if (is_suggestion(word, s))
+		{
+			file_handler->write_to_log(" " + s);
+		}
+	}
+	for (char c = 'a'; c <= 'z'; c++)
+	{
+		magic(t->get_child(c), s + c, word);
+	}
+}
+
+void SpellingChecker::check_spelling(std::string word)
+{
+	if (!dictionary->contains(word))
+	{
+		file_handler->write_to_log(word + ":");
+		magic(dictionary->get_root(), "", word);
+		file_handler->write_to_log("\n");
+		total_mispelled_words++;
+	}
+	total_checked_words++;
 }
 
 int SpellingChecker::get_total_checked_words()

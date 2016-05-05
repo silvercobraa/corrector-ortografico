@@ -1,13 +1,16 @@
 #include "Trie.h"
+#include "FileHandler.h"
 
 #ifndef _SPELLING_CHECKER_H_
 #define _SPELLING_CHECKER_H_
 
+class FileHandler;
 
 class SpellingChecker
 {
 private:
 
+	FileHandler* file_handler;
 	/**
 	 * Cantidad de palabras revisadas.
 	 */
@@ -43,6 +46,7 @@ private:
 
 public:
 	SpellingChecker();
+	SpellingChecker(FileHandler* f);
 
 	/**
 	 * Llena el diccionario de este corrector ortográfico con todas las palabras
@@ -66,7 +70,7 @@ public:
 	 * word: sugerencia_1 sugerencia_2 sugerencia_3 ...
 	 * Si la palabra está bien escrita, se retorna un string vacío.
 	 */
-	std::string check_spelling(std::string word);
+	void check_spelling(std::string word);
 
 	/**
 	* Retorna true si s1 es una sugerencia válida para s2, según los siguientes
@@ -92,6 +96,8 @@ public:
 	 * diccionario de este corrector ortográfico.
 	 */
 	int get_total_mispelled_words();
+
+	void magic(TrieNode* t, std::string s, std::string word);
 };
 
 
