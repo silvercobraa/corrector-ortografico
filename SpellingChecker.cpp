@@ -148,6 +148,7 @@ void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::strin
 
 void SpellingChecker::check_spelling(std::string word)
 {
+	std::cout << word << std::endl;
 	if (!dictionary->contains(word))
 	{
 		file_handler->write_to_log(word + ":");

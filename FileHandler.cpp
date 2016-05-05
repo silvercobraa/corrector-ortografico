@@ -47,6 +47,10 @@ void FileHandler::write_suggestions()
 	std::string lowercase = "";
 	while(true)
 	{
+		if (input_file.eof())
+		{
+			break;
+		}
 		input_file >> word;
 		if (input_file.eof())
 		{
@@ -80,7 +84,7 @@ void FileHandler::write_statistics()
 	log_file << "cantidad de palabras del diccionario: " << spelling_checker->get_dictionary()->get_total_words() << std::endl;
 	//log_file << "palabras bien escritas: " << spelling_checker->get_total_checked_words()-spelling_checker->get_total_mispelled_words() << std::endl;
 	log_file << "palabras bien escritas: " << spelling_checker->get_total_checked_words()-spelling_checker->get_total_mispelled_words() << std::endl;
-	log_file << "palabras bien escritas: " << spelling_checker->get_total_mispelled_words() << std::endl;
+	log_file << "palabras mal escritas: " << spelling_checker->get_total_mispelled_words() << std::endl;
 	//log_file << "palabras mal escritas: " << palabras_mal_escritas << std::endl;
 }
 
