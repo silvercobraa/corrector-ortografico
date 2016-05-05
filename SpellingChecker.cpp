@@ -1,4 +1,5 @@
 #include <fstream>
+#include <algorithm>
 #include "SpellingChecker.h"
 
 SpellingChecker::SpellingChecker()
@@ -136,10 +137,9 @@ void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::strin
 	}
 	if (aux != NULL && aux->is_valid())
 	{
-		suggestions.push_back(" " + s + word);
+		suggestions.push_back(s + word);
 		return;
 	}
-	std::cout << "DEBUG" << std::endl;
 	for (char c = 'a'; c <= 'z'; c++)
 	{
 		print_suggestions_1(t->get_child(c), s + c, word, differences+1);
@@ -154,6 +154,8 @@ void SpellingChecker::check_spelling(std::string word)
 		print_suggestions_1(dictionary->get_root(), "", word, 0);
 		magic(word);
 		// sort vector
+		std::sort(suggestions.begin(), suggestions.end());
+		std::reverse(suggestions.begin(), suggestions.end());
 		while (!suggestions.empty())
 		{
 			file_handler->write_to_log(" " + suggestions.back());
