@@ -65,6 +65,9 @@ public:
 	 */
 	int set_valid(bool new_state);
 
+	/**
+	 * Retorna el nodo padre de este nodo.
+	 */
 	TrieNode* get_parent();
 };
 
