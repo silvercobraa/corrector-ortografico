@@ -55,11 +55,13 @@ public:
 	 */
 	int get_total_words();
 
+	TrieNode* get_root();
 	/**
 	 * Retorna un iterador de las claves de este Trie.
 	 */
 	KeyIterator* get_key_iterator();
 
+	void visit_every_node(TrieNode* t, std::string s, void (*funcion)(std::string));
 };
 
 

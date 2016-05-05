@@ -22,6 +22,7 @@ void print_node(TrieNode* t, std::string s)
 		print_node(t->get_child(c), s + c);
 	}
 }
+
 void Trie::print_trie()
 {
 	print_node(root, "");
@@ -79,7 +80,7 @@ int Trie::get_total_words()
 	return total_words;
 }
 
-Trie::KeyIterator* Trie::get_key_iterator()
+TrieNode* Trie::get_root()
 {
-	return new KeyIterator();
+	return root;
 }

@@ -83,25 +83,21 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 
 std::string SpellingChecker::check_spelling(std::string word)
 {
-	std::string return_value = "";
+	/*std::string return_value = "";
 	if (!dictionary->contains(word))
 	{
 		return_value += word + ":";
-		Trie::KeyIterator* it = dictionary->get_key_iterator(); // ESTE DEBE SER UN ITERADOR QUE RECORRA LAS CLAVES EN ORDEN LEXICOGRÁFICO
 		std::string possible_suggestion = "";
-		while(it->has_next())
+		if (is_suggestion(word, possible_suggestion))
 		{
-			possible_suggestion = it->get_next();
-			if (is_suggestion(word, possible_suggestion))
-			{
-				return_value += " " + possible_suggestion;
-			}
+			return_value += " " + possible_suggestion;
 		}
 		return_value += "\n";
 		total_mispelled_words++;
 	}
 	total_checked_words++;
-	return return_value;
+	//return return_value;*/
+	return "";
 }
 
 bool SpellingChecker::is_suggestion(std::string M, std::string C)

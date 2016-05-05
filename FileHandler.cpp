@@ -6,6 +6,8 @@ FileHandler::FileHandler()
 
 FileHandler::FileHandler(const char* dictionary_file_path, const char* input_file_path, const char* log_file_path)
 {
+	palabras_revisadas = 0;
+	palabras_mal_escritas = 0;
 	spelling_checker = new SpellingChecker();
 	dictionary_file.open(dictionary_file_path);
 	input_file.open(input_file_path);
@@ -40,6 +42,24 @@ Trie* FileHandler::extract_dictionary_file_words()
 	return spelling_checker->get_dictionary();
 }
 
+void FileHandler::magic(TrieNode* t, std::string s, std::string word)
+{
+	if (t == NULL)
+	{
+		return;
+	}
+	if (t->is_valid())
+	{
+		if (spelling_checker->is_suggestion(word, s))
+		{
+			write_to_log(" " + s);
+		}
+	}
+	for (char c = 'a'; c <= 'z'; c++)
+	{
+		magic(t->get_child(c), s + c, word);
+	}
+}
 void FileHandler::write_suggestions()
 {
 	std::string word = "";
@@ -64,7 +84,16 @@ void FileHandler::write_suggestions()
 			}
 		}
 		std::cout << "lowercase: " << lowercase << std::endl;
-		write_to_log(spelling_checker->check_spelling(lowercase));
+		if (!spelling_checker->get_dictionary()->contains(lowercase))
+		{
+			write_to_log(lowercase + ":");
+			magic(spelling_checker->get_dictionary()->get_root(), "", lowercase);
+			write_to_log("\n");
+			palabras_mal_escritas++;
+		}
+		palabras_revisadas++;
+		//write_to_log(spelling_checker->check_spelling(lowercase));
+
 		lowercase.clear();
 	}
 }
@@ -77,8 +106,9 @@ void FileHandler::write_to_log(std::string s)
 void FileHandler::write_statistics()
 {
 	log_file << "cantidad de palabras del diccionario: " << spelling_checker->get_dictionary()->get_total_words() << std::endl;
-	log_file << "palabras bien escritas: " << spelling_checker->get_total_checked_words()-spelling_checker->get_total_mispelled_words() << std::endl;
-	log_file << "palabras mal escritas: " << spelling_checker->get_total_mispelled_words() << std::endl;
+	//log_file << "palabras bien escritas: " << spelling_checker->get_total_checked_words()-spelling_checker->get_total_mispelled_words() << std::endl;
+	log_file << "palabras bien escritas: " << palabras_revisadas-palabras_mal_escritas << std::endl;
+	log_file << "palabras mal escritas: " << palabras_mal_escritas << std::endl;
 }
 
 void FileHandler::close_all()

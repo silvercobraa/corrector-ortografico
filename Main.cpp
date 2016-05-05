@@ -20,10 +20,5 @@ int main(int argc, char const **argv)
 	file_handler->write_suggestions();
 	file_handler->write_statistics();
 	file_handler->close_all();
-	// loop infinito intencional
-	while (true)
-	{
-
-	}
 	return 0;
 }

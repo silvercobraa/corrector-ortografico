@@ -41,6 +41,10 @@ public:
 
 	FileHandler (const char* dictionary_file_path, const char* input_file_path, const char* log_file_path);
 
+	// ESTO NO DEBERIA IR EN ESTA CLASE (Y MENOS DE MANERA PUBLICA) PERO FUNCIONA POR AHORA
+	int palabras_revisadas;
+	int palabras_mal_escritas;
+
 	/**
 	 * Retorna un trie con todas las palabras contenidas en el archivo
 	 * dictionary_file. Se asume una palabra por línea, es decir, se ignoran todas
@@ -71,6 +75,12 @@ public:
 	 * de este mismo.
 	 */
 	void write_statistics();
+
+	/**
+	 * Se fue a la mierda el programa con esta wea pero es la unica manera en la
+	 * que funciona
+	 */
+	void magic(TrieNode* t, std::string s, std::string word);
 };
 
 
