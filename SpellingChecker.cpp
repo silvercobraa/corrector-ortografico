@@ -189,6 +189,7 @@ void SpellingChecker::check_spelling(std::string word)
 		traverse_trie(dictionary->get_root(), "", word, 0, 0);
 		// sort vector
 		std::sort(suggestions.begin(), suggestions.end());
+		suggestions.erase(std::unique(suggestions.begin(), suggestions.end()), suggestions.end());
 		std::reverse(suggestions.begin(), suggestions.end());
 		while (!suggestions.empty())
 		{
