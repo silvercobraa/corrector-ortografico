@@ -1,3 +1,5 @@
+// TODO: RENOMBRAR MÉTODOS
+
 #include <vector>
 #include "Trie.h"
 #include "FileHandler.h"
