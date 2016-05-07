@@ -112,7 +112,7 @@ bool SpellingChecker::is_suggestion(std::string M, std::string C)
 	return false;
 }
 
-void SpellingChecker::magic(std::string word)
+/*void SpellingChecker::magic(std::string word)
 {
 	for (char c1 = 'a'; c1 <= 'z'; c1++)
 	{
@@ -126,6 +126,20 @@ void SpellingChecker::magic(std::string word)
 			{
 				suggestions.push_back((word + c1) + c2);
 			}
+		}
+	}
+}*/
+void SpellingChecker::magic(std::string word)
+{
+	TrieNode* t = dictionary->get_root();
+	std::string s = "";
+	for (int i = 0; t != NULL && i < word.size(); i++)
+	{
+		t = t->get_child(word[i]);
+		s += word[i];
+		if (t != NULL && t->is_valid() && validate_length(s, word))
+		{
+			suggestions.push_back(s);
 		}
 	}
 }
@@ -184,9 +198,9 @@ void SpellingChecker::check_spelling(std::string word)
 	if (!dictionary->contains(word))
 	{
 		file_handler->write_to_log(word + ":");
-		print_suggestions_1(dictionary->get_root(), "", word, 0);
+		//print_suggestions_1(dictionary->get_root(), "", word, 0);
 		magic(word);
-		traverse_trie(dictionary->get_root(), "", word, 0, 0);
+		//traverse_trie(dictionary->get_root(), "", word, 0, 0);
 		// sort vector
 		std::sort(suggestions.begin(), suggestions.end());
 		suggestions.erase(std::unique(suggestions.begin(), suggestions.end()), suggestions.end());
