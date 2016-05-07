@@ -50,8 +50,10 @@ public:
 	SpellingChecker();
 	SpellingChecker(FileHandler* f);
 
+	/**
+	 * Este metodo busca palabras que tengan como prefijo a word
+	 */
 	void print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences);
-	void print_suggestions_2(TrieNode* t, std::string s, std::string word, int differences);
 
 	/**
 	 * Llena el diccionario de este corrector ortográfico con todas las palabras
@@ -102,7 +104,16 @@ public:
 	 */
 	int get_total_mispelled_words();
 
+	/**
+	 * Este metodo busca palabras que tengan como sufijo a word
+	 */
 	void magic(std::string word);
+
+	/**
+	 * Este metodo busca palabras que cumplan el tercer criterio del enunciao del proyecto
+	 */
+	void traverse_trie(TrieNode* t, std::string s, std::string word, int current_position, int mismatches);
+
 };
 
 
