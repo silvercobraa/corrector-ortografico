@@ -73,6 +73,8 @@ std::string shortest(std::string s1, std::string s2)
 
 bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::string s2)
 {
+	int length_difference = std::abs((signed)s1.size()-(signed)s2.size());
+	//std::cout << "length difference: " << length_difference << std::endl;
 	if (s1.size() <= 3 || s2.size() <= 3)
 	{
 		return false;
@@ -86,7 +88,7 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 			mismatches++;
 		}
 	}
-	if (mismatches < 2)
+	if (mismatches + length_difference <= 2)
 	{
 		return true;
 	}
@@ -114,6 +116,10 @@ void SpellingChecker::magic(std::string word)
 {
 	for (char c1 = 'a'; c1 <= 'z'; c1++)
 	{
+		if (dictionary->contains(word + c1))
+		{
+			suggestions.push_back(word + c1);
+		}
 		for (char c2 = 'a'; c2 <= 'z'; c2++)
 		{
 			if (dictionary->contains((word + c1) + c2))
@@ -146,6 +152,32 @@ void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::strin
 	}
 }
 
+void SpellingChecker::traverse_trie(TrieNode* t, std::string s, std::string word, int current_position, int mismatches)
+{
+	if (t == NULL || mismatches > 2)
+	{
+		return;
+	}
+	//if (t->is_valid() && s.size() > 3 && word.size() > 3 && s.size() == word.size())
+	if (t->is_valid() && differs_at_most_by_2_characters(s, word))
+	{
+		//std::cout << s << std::endl;
+		suggestions.push_back(s);
+	}
+	for (char c = 'a'; c <= 'z'; c++)
+	{
+		if (word[current_position] == c)
+		{
+			traverse_trie(t->get_child(c), s + c, word, current_position+1, mismatches);
+		}
+		else
+		{
+			traverse_trie(t->get_child(c), s + c, word, current_position+1, mismatches+1);
+		}
+	}
+
+}
+
 void SpellingChecker::check_spelling(std::string word)
 {
 	std::cout << word << std::endl;
@@ -154,6 +186,7 @@ void SpellingChecker::check_spelling(std::string word)
 		file_handler->write_to_log(word + ":");
 		print_suggestions_1(dictionary->get_root(), "", word, 0);
 		magic(word);
+		traverse_trie(dictionary->get_root(), "", word, 0, 0);
 		// sort vector
 		std::sort(suggestions.begin(), suggestions.end());
 		std::reverse(suggestions.begin(), suggestions.end());
