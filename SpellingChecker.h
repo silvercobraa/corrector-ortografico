@@ -14,6 +14,11 @@ class SpellingChecker
 private:
 
 	FileHandler* file_handler;
+
+	/**
+	 * Vector donde se guardan las palabras que se consideren como sugenencias
+	 * válidas al revisar la ortografía de una palabra.
+	 */
 	vector<std::string> suggestions;
 	/**
 	 * Cantidad de palabras revisadas.
@@ -37,11 +42,6 @@ private:
 	bool validate_length(std::string s1, std::string s2);
 
 	/**
-	 * Retorna true si s1 es un prefijo de s2. Retorna false en otro caso.
-	 */
-	bool is_prefix(std::string s1, std::string s2);
-
-	/**
 	 * Retorna true si s1  s2 difieren a los más en 2 caracteres y el largo de
 	 * ambas es mayor a 3.
 	 */
@@ -53,17 +53,6 @@ public:
 	SpellingChecker(FileHandler* f);
 
 	/**
-	 * Este metodo busca palabras que tengan como prefijo a word
-	 */
-	void print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences);
-
-	/**
-	 * Llena el diccionario de este corrector ortográfico con todas las palabras
-	 * del archivo cuya ruta es 'path'. Se asume una palabra por línea.
-	 */
-	void set_dictionary(Trie* dictionary);
-
-	/**
 	 * Retorna un trie que representa al diccionario.
 	 */
 	Trie* get_dictionary();
@@ -73,27 +62,8 @@ public:
 	 */
 	void add_word(std::string s);
 
-	/**
-	 * Revisa la ortografía de la palabra word. Si la palabra no está contenida en el
-	 * diccionario, se retorna un string de la forma:
-	 * word: sugerencia_1 sugerencia_2 sugerencia_3 ...
-	 * Si la palabra está bien escrita, se retorna un string vacío.
-	 */
-	void check_spelling(std::string word);
 
-	/**
-	* Retorna true si s1 es una sugerencia válida para s2, según los siguientes
-	* criterios:
-	* - Si las longitudes de M y C difieren en más de dos, entonces C no se
-	*   sugiere.
-	* - Si M es un prefijo de C, o si C es un prefijo de M , entonces se sugiere
-	*   C.
-	* - Se comparan, uno a uno desde el comienzo, los caracteres de M y C hasta
-	*   terminar uno o ambos strings (lo que ocurra primero). Si hay a lo más
-	*   dos diferencias, y ambos M y C son de largo mayor a tres, entonces
-	*   se sugiere C.
-	*/
-	bool is_suggestion(std::string M, std::string C);
+	void check_spelling(std::string word);
 
 	/**
 	 * Retorna la cantidad de palabras revisadas.
@@ -107,14 +77,22 @@ public:
 	int get_total_mispelled_words();
 
 	/**
-	 * Este metodo busca palabras que tengan como sufijo a word
-	 */
-	void magic(std::string word);
+	* Este metodo busca palabras en el diccionario que tengan como prefijo a word
+	* y las agrega al vector de sugerencias.
+	*/
+	void add_suggestions_1(TrieNode* t, std::string word);
 
 	/**
-	 * Este metodo busca palabras que cumplan el tercer criterio del enunciao del proyecto
+	 * Este metodo busca palabras en el diccionario que sean prefijos de word.
 	 */
-	void traverse_trie(TrieNode* t, std::string s, std::string word, int current_position, int mismatches);
+	void add_suggestions_2(std::string word);
+
+	/**
+	 * Este metodo busca palabras difieran a lo más en dos caracteres de word
+	 * y las agrega al vector de sugerencias, siempre y cuando la word y s sean
+	 * de largo mayor que 3.
+	 */
+	void add_suggestions_3(TrieNode* t, std::string s, std::string word, int current_position, int mismatches);
 
 };
 
