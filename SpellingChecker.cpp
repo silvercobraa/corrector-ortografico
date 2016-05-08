@@ -133,7 +133,7 @@ void SpellingChecker::magic(std::string word)
 {
 	TrieNode* t = dictionary->get_root();
 	std::string s = "";
-	for (int i = 0; t != NULL && i < word.size(); i++)
+	for (unsigned int i = 0; t != NULL && i < word.size(); i++)
 	{
 		t = t->get_child(word[i]);
 		s += word[i];
@@ -144,7 +144,7 @@ void SpellingChecker::magic(std::string word)
 	}
 }
 
-void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences)
+/*void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences)
 {
 	if (t == NULL || differences > 2)
 	{
@@ -164,8 +164,42 @@ void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::strin
 	{
 		print_suggestions_1(t->get_child(c), s + c, word, differences+1);
 	}
-}
+}*/
 
+void SpellingChecker::print_suggestions_1(TrieNode* t, std::string s, std::string word, int differences)
+{
+	TrieNode* aux = t;
+	for (unsigned int i = 0; i < word.size(); i++)
+	{
+		if (aux == NULL)
+		{
+			return;
+		}
+		aux = aux->get_child(word[i]);
+	}
+	if (aux == NULL)
+	{
+		return;
+	}
+	for (char c1 = 'a'; c1 <= 'z'; c1++)
+	{
+		if (aux->get_child(c1) == NULL)
+		{
+			continue;
+		}
+		for (char c2 = 'a'; c2 <= 'z'; c2++)
+		{
+			if (aux->get_child(c1)->get_child(c2) == NULL)
+			{
+				continue;
+			}
+			if (aux->get_child(c1)->get_child(c2)->is_valid())
+			{
+				suggestions.push_back((word + c1) + c2);
+			}
+		}
+	}
+}
 void SpellingChecker::traverse_trie(TrieNode* t, std::string s, std::string word, int current_position, int mismatches)
 {
 	if (t == NULL || mismatches > 2)
@@ -199,8 +233,8 @@ void SpellingChecker::check_spelling(std::string word)
 	{
 		file_handler->write_to_log(word + ":");
 		//print_suggestions_1(dictionary->get_root(), "", word, 0);
-		magic(word);
-		//traverse_trie(dictionary->get_root(), "", word, 0, 0);
+		//magic(word);
+		traverse_trie(dictionary->get_root(), "", word, 0, 0);
 		// sort vector
 		std::sort(suggestions.begin(), suggestions.end());
 		suggestions.erase(std::unique(suggestions.begin(), suggestions.end()), suggestions.end());
