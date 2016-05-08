@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "FileHandler.h"
 
 FileHandler::FileHandler()
@@ -6,7 +7,7 @@ FileHandler::FileHandler()
 
 FileHandler::FileHandler(const char* dictionary_file_path, const char* input_file_path, const char* log_file_path)
 {
-	spelling_checker = new SpellingChecker(this);
+	spelling_checker = new SpellingChecker();
 	dictionary_file.open(dictionary_file_path);
 	input_file.open(input_file_path);
 	log_file.open(log_file_path);
@@ -69,7 +70,23 @@ void FileHandler::write_suggestions()
 			}
 		}
 		std::cout << "lowercase: " << lowercase << std::endl;
-		spelling_checker->check_spelling(lowercase);
+		vector<std::string> suggestions = spelling_checker->check_spelling(lowercase);
+		if (!suggestions.empty() && !suggestions.back().compare(word)) // Si el vector no está vacío y no contiene a word
+		{
+			lowercase.clear();
+			continue;
+		}
+		else
+		{
+			std::reverse(suggestions.begin(), suggestions.end());
+			write_to_log(lowercase + ":");
+			while (!suggestions.empty())
+			{
+				write_to_log(" " + suggestions.back());
+				suggestions.pop_back();
+			}
+			write_to_log("\n");
+		}
 		lowercase.clear();
 	}
 }
