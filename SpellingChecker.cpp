@@ -5,15 +5,6 @@
 SpellingChecker::SpellingChecker()
 {
 	this->dictionary = new Trie();
-	this->file_handler = NULL;
-	this->total_checked_words = 0;
-	this->total_mispelled_words = 0;
-}
-
-SpellingChecker::SpellingChecker(FileHandler* f)
-{
-	this->dictionary = new Trie();
-	this->file_handler = f;
 	this->total_checked_words = 0;
 	this->total_mispelled_words = 0;
 }
@@ -82,7 +73,7 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 	return false;
 }
 
-void SpellingChecker::add_suggestions_1(TrieNode* t, std::string word)
+void SpellingChecker::add_suggestions_1(vector<std::string>* suggestions, TrieNode* t, std::string word)
 {
 	TrieNode* aux = t;
 	for (unsigned int i = 0; i < word.size(); i++)
@@ -111,13 +102,13 @@ void SpellingChecker::add_suggestions_1(TrieNode* t, std::string word)
 			}
 			if (aux->get_child(c1)->get_child(c2)->is_valid())
 			{
-				suggestions.push_back((word + c1) + c2);
+				suggestions->push_back((word + c1) + c2);
 			}
 		}
 	}
 }
 
-void SpellingChecker::add_suggestions_2(std::string word)
+void SpellingChecker::add_suggestions_2(vector<std::string>* suggestions, std::string word)
 {
 	TrieNode* t = dictionary->get_root();
 	std::string s = "";
@@ -127,57 +118,54 @@ void SpellingChecker::add_suggestions_2(std::string word)
 		s += word[i];
 		if (t != NULL && t->is_valid() && validate_length(s, word))
 		{
-			suggestions.push_back(s);
+			suggestions->push_back(s);
 		}
 	}
 }
 
-void SpellingChecker::add_suggestions_3(TrieNode* t, std::string s, std::string word, int current_position, int mismatches)
+void SpellingChecker::add_suggestions_3(vector<std::string>* suggestions, TrieNode* t, std::string s, std::string word, int current_position, int mismatches)
 {
 	if (t == NULL || mismatches > 2)
 	{
 		return;
 	}
-	//if (t->is_valid() && s.size() > 3 && word.size() > 3 && s.size() == word.size())
 	if (t->is_valid() && differs_at_most_by_2_characters(s, word))
 	{
-		//std::cout << s << std::endl;
-		suggestions.push_back(s);
+		suggestions->push_back(s);
 	}
 	for (char c = 'a'; c <= 'z'; c++)
 	{
 		if (word[current_position] == c)
 		{
-			add_suggestions_3(t->get_child(c), s + c, word, current_position+1, mismatches);
+			add_suggestions_3(suggestions, t->get_child(c), s + c, word, current_position+1, mismatches);
 		}
 		else
 		{
-			add_suggestions_3(t->get_child(c), s + c, word, current_position+1, mismatches+1);
+			add_suggestions_3(suggestions, t->get_child(c), s + c, word, current_position+1, mismatches+1);
 		}
 	}
 
 }
 
-void SpellingChecker::check_spelling(std::string word)
+vector<std::string> SpellingChecker::check_spelling(std::string word)
 {
+	vector<std::string> suggestions;
 	std::cout << word << std::endl;
 	if (!dictionary->contains(word))
 	{
-		file_handler->write_to_log(word + ":");
-		add_suggestions_1(dictionary->get_root(), word);
-		add_suggestions_2(word);
-		add_suggestions_3(dictionary->get_root(), "", word, 0, 0);
-		// sort vector
+		add_suggestions_1(&suggestions, dictionary->get_root(), word);
+		add_suggestions_2(&suggestions, word);
+		add_suggestions_3(&suggestions, dictionary->get_root(), "", word, 0, 0);
+
 		std::sort(suggestions.begin(), suggestions.end());
 		suggestions.erase(std::unique(suggestions.begin(), suggestions.end()), suggestions.end());
-		std::reverse(suggestions.begin(), suggestions.end());
-		while (!suggestions.empty())
-		{
-			file_handler->write_to_log(" " + suggestions.back());
-			suggestions.pop_back();
-		}
-		file_handler->write_to_log("\n");
+
 		total_mispelled_words++;
 	}
+	else
+	{
+		suggestions.push_back(word);
+	}
 	total_checked_words++;
+	return suggestions;
 }

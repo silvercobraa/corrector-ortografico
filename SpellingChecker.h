@@ -5,13 +5,9 @@
 #ifndef _SPELLING_CHECKER_H_
 #define _SPELLING_CHECKER_H_
 
-class FileHandler;
-
 class SpellingChecker
 {
 private:
-
-	FileHandler* file_handler;
 
 	/**
 	 * Cantidad de palabras revisadas.
