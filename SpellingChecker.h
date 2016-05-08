@@ -1,5 +1,3 @@
-// TODO: RENOMBRAR MÉTODOS
-
 #include <vector>
 #include "Trie.h"
 #include "FileHandler.h"
@@ -15,11 +13,6 @@ private:
 
 	FileHandler* file_handler;
 
-	/**
-	 * Vector donde se guardan las palabras que se consideren como sugenencias
-	 * válidas al revisar la ortografía de una palabra.
-	 */
-	vector<std::string> suggestions;
 	/**
 	 * Cantidad de palabras revisadas.
 	 */
@@ -47,10 +40,28 @@ private:
 	 */
 	bool differs_at_most_by_2_characters(std::string s1, std::string s2);
 
+	/**
+	* Este metodo busca palabras en el diccionario que tengan como prefijo a word
+	* y las agrega al vector suggestions.
+	*/
+	void add_suggestions_1(vector<std::string>* suggestions, TrieNode* t, std::string word);
+
+	/**
+	* Este metodo busca palabras en el diccionario que sean prefijos de word y
+	* las agrega al vector suggestions.
+	*/
+	void add_suggestions_2(vector<std::string>* suggestions, std::string word);
+
+	/**
+	* Este metodo busca palabras difieran a lo más en dos caracteres de word
+	* y las agrega al vector suggestions, siempre y cuando la word y s sean
+	* de largo mayor que 3.
+	*/
+	void add_suggestions_3(vector<std::string>* suggestions, TrieNode* t, std::string s, std::string word, int current_position, int mismatches);
 
 public:
+
 	SpellingChecker();
-	SpellingChecker(FileHandler* f);
 
 	/**
 	 * Retorna un trie que representa al diccionario.
@@ -62,8 +73,12 @@ public:
 	 */
 	void add_word(std::string s);
 
-
-	void check_spelling(std::string word);
+	/**
+	 * Retorna un vector de strings con todas las palabras similares a word.
+	 * Si no se encuentran sugerencias, se retorna un vector vacío. Si word se
+	 encuentra en el diccionario, se retorna un vector que sólo contiene a word.
+	 */
+	vector<std::string> check_spelling(std::string word);
 
 	/**
 	 * Retorna la cantidad de palabras revisadas.
@@ -71,28 +86,10 @@ public:
 	int get_total_checked_words();
 
 	/**
-	 * Retorna la cantidad de palabras evisadas que están mal escritas, según el
+	 * Retorna la cantidad de palabras revisadas que están mal escritas, según el
 	 * diccionario de este corrector ortográfico.
 	 */
 	int get_total_mispelled_words();
-
-	/**
-	* Este metodo busca palabras en el diccionario que tengan como prefijo a word
-	* y las agrega al vector de sugerencias.
-	*/
-	void add_suggestions_1(TrieNode* t, std::string word);
-
-	/**
-	 * Este metodo busca palabras en el diccionario que sean prefijos de word.
-	 */
-	void add_suggestions_2(std::string word);
-
-	/**
-	 * Este metodo busca palabras difieran a lo más en dos caracteres de word
-	 * y las agrega al vector de sugerencias, siempre y cuando la word y s sean
-	 * de largo mayor que 3.
-	 */
-	void add_suggestions_3(TrieNode* t, std::string s, std::string word, int current_position, int mismatches);
 
 };
 
