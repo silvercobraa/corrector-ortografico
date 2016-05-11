@@ -20,17 +20,6 @@ private:
 	int total_words;
 
 public:
-	/**
-	* Iterador de las claves de este Trie.
-	*/
-	class KeyIterator
-	{
-	public:
-		KeyIterator();
-		bool has_next();
-		std::string get_next();
-	};
-
 	Trie();
 
 	/**
@@ -56,12 +45,6 @@ public:
 	int get_total_words();
 
 	TrieNode* get_root();
-	/**
-	 * Retorna un iterador de las claves de este Trie.
-	 */
-	KeyIterator* get_key_iterator();
-
-	void visit_every_node(TrieNode* t, std::string s, void (*funcion)(std::string));
 };
 
 
