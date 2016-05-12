@@ -66,7 +66,8 @@ bool SpellingChecker::differs_at_most_by_2_characters(std::string s1, std::strin
 			mismatches++;
 		}
 	}
-	if (mismatches + length_difference <= 2)
+	//if (mismatches + length_difference <= 2)
+	if (mismatches <= 2 && length_difference <= 2)
 	{
 		return true;
 	}
