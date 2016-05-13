@@ -59,6 +59,8 @@ El proyecto se realizará en parejas. Enviar en piazza (mensaje privado a Instru
 
  * Esté en formato pdf.  
 
+
+
 2. Un archivo comprimido con todos los ficheros fuente implementados para solucionar la tarea. El informe debe hacer referencia a ellos y explicar en qué consiste cada uno.
 
 **Fecha de Entrega: viernes 13 de Mayo 11:59PM**
