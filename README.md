@@ -34,7 +34,7 @@ Existen diversas formas de implementar un corrector ortográfico. En este proyec
 
 ### Archivos
 Los archivos de entrada y salida del programa son los siguientes:  
-1. **archivo_diccionario:** archivo de entrada que contiene una palabra por línea. Puede contener comentarios partiendo con el símbolo %. Pueden encontrar ejemplos de diccionarios [aquí](http://www.winedt.org/dict.html). Asuma que todas las palabras est ́án con minúsculas.
+1. **archivo_diccionario:** archivo de entrada que contiene una palabra por línea. Puede contener comentarios partiendo con el símbolo %. Pueden encontrar ejemplos de diccionarios [aquí](http://www.winedt.org/dict.html). Asuma que todas las palabras est ́án con minúsculas
 
 2. **archivo_a_revisar:** archivo que contiene el texto a revisar. El archivo puede contener puntuación y combinaciones de mayúsculas y minúsculas. Para poder hacer comparaciones válidas será necesario procesar el texto de tal forma de extraer cada palabra (delimitada por un espacio al principio y otro al final), luego reemplazar todas las mayúsculas por minúsculas y eliminar cualquier puntuaci ́on que haya al principio o al final. Por ejemplo si encuentra la palabra "*Hola*" revisará la palabra "*hola*". Si encuentra el texto "*Claro!!!*"
 revisará "*claro*".
