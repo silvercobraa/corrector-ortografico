@@ -1,7 +1,5 @@
 # corrector-ortografico
-Un corrector ortográfico basado en la estructura de datos Trie, implementado en C++.
-
-## Estructuras de Datos, Primer Semestre 2016
+Un corrector ortográfico basado en la estructura de datos Trie, implementado en C++. (Estructuras de Datos, Primer Semestre 2016)
 
 ### Descripción del Problema
 En este proyecto se pide implementar un corrector ortográfico simple para el español o inglés. El corrector ortográfico incorporará una base de datos de palabras, y será construido a partir de una lista de palabras, organizando la información de tal forma que se pueda hacer una búsqueda eficiente.
@@ -52,7 +50,7 @@ revisará "*claro*".
  * Un resumen de estadísticas de la revisión que incluya: número total de palabras que contiene el diccionario, número de palabras escritas correctamente y número de palabras con error. Cada una en una línea.
 
 ### Evaluación
-El proyecto se realizará en parejas. Enviar en piazza (mensaje privado a Instructors) lo siguiente:
+El proyecto se realizará en parejas. Enviar en piazza (mensaje privado a Instructors) lo siguiente:  
 1. Un informe que:
  * Incluya portada, descripción de la tarea, descripción de la solución propuesta (puede emplear diagramas de clase para explicar la solución) y detalles de implementación.
 
