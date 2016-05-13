@@ -71,7 +71,7 @@ void FileHandler::write_suggestions()
 		}
 		std::cout << "lowercase: " << lowercase << std::endl;
 		vector<std::string> suggestions = spelling_checker->check_spelling(lowercase);
-		if (!suggestions.empty() && !suggestions.back().compare(word)) // Si el vector no está vacío y no contiene a word
+		if (!suggestions.empty() && !suggestions.back().compare(lowercase)) // Si el vector no está vacío y no contiene a word
 		{
 			lowercase.clear();
 			continue;
