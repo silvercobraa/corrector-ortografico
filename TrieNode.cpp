@@ -34,7 +34,7 @@ int TrieNode::set_valid(bool new_state)
 {
 	bool previous_state = valid;
 	valid = new_state;
-	return new_state-previous_state;
+	return (int)new_state-(int)previous_state;
 }
 
 TrieNode* TrieNode::get_parent()
