@@ -1,5 +1,5 @@
 # corrector-ortografico
-Un corrector ortográfico basado en la estructura de datos Trie, implementado en C++. (Estructuras de Datos, Primer Semestre 2016)
+Un corrector ortográfico basado en la estructura de datos Trie, implementado en C++ (Estructuras de Datos, Primer Semestre 2016).
 
 ### Descripción del Problema
 En este proyecto se pide implementar un corrector ortográfico simple para el español o inglés. El corrector ortográfico incorporará una base de datos de palabras, y será construido a partir de una lista de palabras, organizando la información de tal forma que se pueda hacer una búsqueda eficiente.
@@ -33,7 +33,7 @@ Existen diversas formas de implementar un corrector ortográfico. En este proyec
 * En la implementación se deben respetar los principios de buen diseño, abstracci ́on y encapsulamiento. Por ejemplo, debe definir una interfaz para el corrector ortográfico, el  ́arbol no debe asumir responsabilidades que no le pertenezcan como la lectura de palabras a revisar o la construcción de la lista de sugerencias de palabras alternativas, la representación debe ser privada y las modificaciones y consultas se deben hacer sólo a través de métodos.
 
 ### Archivos
-Los archivos de entrada y salida del programa son los siguientes:
+Los archivos de entrada y salida del programa son los siguientes:  
 1. **archivo_diccionario:** archivo de entrada que contiene una palabra por línea. Puede contener comentarios partiendo con el símbolo %. Pueden encontrar ejemplos de diccionarios [aquí](http://www.winedt.org/dict.html). Asuma que todas las palabras est ́án con minúsculas.
 
 2. **archivo_a_revisar:** archivo que contiene el texto a revisar. El archivo puede contener puntuación y combinaciones de mayúsculas y minúsculas. Para poder hacer comparaciones válidas será necesario procesar el texto de tal forma de extraer cada palabra (delimitada por un espacio al principio y otro al final), luego reemplazar todas las mayúsculas por minúsculas y eliminar cualquier puntuaci ́on que haya al principio o al final. Por ejemplo si encuentra la palabra "*Hola*" revisará la palabra "*hola*". Si encuentra el texto "*Claro!!!*"
@@ -57,6 +57,7 @@ El proyecto se realizará en parejas. Enviar en piazza (mensaje privado a Instru
  * Sea claro y esté bien escrito. Un informe difícil de entender es un informe que será mal evaluado aunque todo esté bien implementado. La persona que revise el documento debe poder entender su solución sólo mirando el informe.
 
  * Esté en formato pdf.
+
 2. Un archivo comprimido con todos los ficheros fuente implementados para solucionar la tarea. El informe debe hacer referencia a ellos y explicar en qué consiste cada uno.
 
 **Fecha de Entrega: viernes 13 de Mayo 11:59PM**
